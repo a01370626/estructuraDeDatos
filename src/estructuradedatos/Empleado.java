@@ -1,3 +1,4 @@
+package estructuradedatos;
 public abstract class Empleado {
 
 	protected String nombre;
@@ -27,6 +28,7 @@ public abstract class Empleado {
 
 	abstract double sueldo(); 
 	
+        @Override
 	public String toString() {
 		return "\nNombre: " + this.nombre + "\nApellido: " + this.apellido + "\nAntiguedad: " + this.antiguedad;
 	}

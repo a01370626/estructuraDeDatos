@@ -1,3 +1,4 @@
+package estructuradedatos;
 public abstract class Planta extends Empleado {
 
 	protected double pagoSemanal;
@@ -11,32 +12,48 @@ public abstract class Planta extends Empleado {
 	private static final double PORCENTAJE_PLANTA = 0.1;			
 	private static final int MAXIMO_SUELDO = 25000;
 	
-	
-
+	  private double sueldo;
+          private String prest="";
+       
+        
+                
 	public Planta( String nombre, String apellido, int antiguedad, double pagoSemanal, boolean[] prestaciones) {
 		super(nombre, apellido, antiguedad);
 		/*
 		 * TODO: 
 		 * Constructor de la clase Planta.
 		 * 1. Inicializa el atributo  de instancia del arreglo de prestaciones con los valores
-		 *    del arreglo de prestaciones que recibe de parámetro.
+		 *    del arreglo de prestaciones que recibe de parï¿½metro.
 		 * 2. Valida que el atributo de instancia, pagoSemanal, se inicialice con un valor entre 0 y MAXIMO_SUELDO.
 		 *    En caso contrario, se asigna 0.
 		 * 3. El atributo de instancia, diaVacaciones, se inicializa con el pagoSemanal * antiguedad * PORCENTAJE_PLANTA. 
 		 */
+                this.pagoSemanal=pagoSemanal;
+                this.prestaciones = new boolean [prestaciones.length];
+                for(int i =0; i< prestaciones.length; i++){
+                    if (prestaciones[i]){
+                            
+                            prest= PRESTACIONES[i] + ", "+ prest ;
+                            
+                        }
+                    this.prestaciones[i] = prestaciones[i];
+                }
+                               
+                
+                
 	}
    
    
     private String regresaPrestaciones() {
     	/*
     	 * TODO: 
-    	 * Método privado que recorre el arreglo de instancia de prestaciones y si tiene un valor de true en la posición i,
-    	 * entonces crea una cadena con el nombre de la prestación correspondiente. Los nombres de las prestaciones están en
-    	 * el arreglo estático PRESTACIONES, en la misma posición i. Así, si prestaciones[0] = true, entonces la prestación
-    	 * correspondiente es PRESTACIONES[0] (que es “Vales despensa”).
+    	 * Mï¿½todo privado que recorre el arreglo de instancia de prestaciones y si tiene un valor de true en la posiciï¿½n i,
+    	 * entonces crea una cadena con el nombre de la prestaciï¿½n correspondiente. Los nombres de las prestaciones estï¿½n en
+    	 * el arreglo estï¿½tico PRESTACIONES, en la misma posiciï¿½n i. Asï¿½, si prestaciones[0] = true, entonces la prestaciï¿½n
+    	 * correspondiente es PRESTACIONES[0] (que es ï¿½Vales despensaï¿½).
     	 */
     	
-    	return "";
+        return prest;
 	}
 	
 	
@@ -46,13 +63,27 @@ public abstract class Planta extends Empleado {
 		 * Calcula el sueldo de un empleado de Planta de la siguiente manera:
 		 *    El sueldo inicial es el pagoSemanal.
 		 * A ese sueldo se le agregan las prestaciones de la siguiente forma:
-		 *    Si el arreglo de instancia de prestaciones tiene un valor de true en la posición i, donde i es:
-		 *       0, 6, 7: sumarle al sueldo el PAGO_PRESTACIONES de la misma posición i
-		 *       1, 2, 5: sumarle al sueldo el PAGO_PRESTACIONES de la misma posición i multiplicado por el pagoSemanal
-		 *       3, 4: sumarle al sueldo el PAGO_PRESTACIONES de la misma posición i multiplicado por diaVacaciones
+		 *    Si el arreglo de instancia de prestaciones tiene un valor de true en la posiciï¿½n i, donde i es:
+		 *       0, 6, 7: sumarle al sueldo el PAGO_PRESTACIONES de la misma posiciï¿½n i
+		 *       1, 2, 5: sumarle al sueldo el PAGO_PRESTACIONES de la misma posiciï¿½n i multiplicado por el pagoSemanal
+		 *       3, 4: sumarle al sueldo el PAGO_PRESTACIONES de la misma posiciï¿½n i multiplicado por diaVacaciones
 		 */
-		
-		return 0.0;
+                sueldo = this.pagoSemanal;
+                for(int i =0; i< PAGO_PRESTACIONES.length; i++){
+                        if (this.prestaciones[i]){
+                            if ( i == 0 || i == 6 || i == 7){
+                                 sueldo = sueldo + PAGO_PRESTACIONES[i];
+                            }
+                            if ( i == 1 || i == 2 || i == 5){
+                                 sueldo = sueldo + PAGO_PRESTACIONES[i] * this.pagoSemanal;
+                            }
+                            if ( i == 3 || i == 4){
+                                 sueldo = sueldo + PAGO_PRESTACIONES[i] * this.diaVacaciones;
+                            }
+                        }
+                }
+                    
+		return sueldo;
 	}
 	
     public void setPagoSemanal( double pagoSemanal ) { 
@@ -60,6 +91,7 @@ public abstract class Planta extends Empleado {
 			this.pagoSemanal = pagoSemanal;
 	}
    
+        @Override
    	public String toString() {
 		return "\n***  Empleado de Planta  ***\n" + super.toString() + "\nCon puesto: " + this.getNombrePuesto() +
 				"\nPago semanal: " + this.pagoSemanal + "\nSueldo integrado: " + this.sueldo() + "\nPrestaciones: " + this.regresaPrestaciones();
@@ -71,8 +103,14 @@ public abstract class Planta extends Empleado {
 	
 	/*
 	 * TODO:
-	 * Crear método público abstracto de nombre setNombrePuesto.
-	 * El método no regresa nada.
-	 * El método recibe una cadena de caracteres con el nombre del puesto (nombrePuesto).
+	 * Crear mï¿½todo pï¿½blico abstracto de nombre setNombrePuesto.
+	 * El mï¿½todo no regresa nada.
+	 * El mï¿½todo recibe una cadena de caracteres con el nombre del puesto (nombrePuesto).
 	 */
+        public void setNombrePuesto(String nombrePuesto ){
+            this.nombrePuesto = nombrePuesto;
+            
+        }
+            
+        
 }

@@ -1,3 +1,4 @@
+package estructuradedatos;
 public interface Administrativo {
 
 	double BONO_MAXIMO = 10000;

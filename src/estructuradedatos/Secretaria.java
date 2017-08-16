@@ -1,3 +1,4 @@
+package estructuradedatos;
 public class Secretaria extends Planta {
 
 	public Secretaria( String nombre, String apellido, int antiguedad, boolean[] prestaciones, double pagoSemanal, String nombrePuesto) {

@@ -1,3 +1,4 @@
+package estructuradedatos;
 public class PruebaEmpleados {
 	
 	public static void main(String[] args) {
@@ -26,9 +27,21 @@ public class PruebaEmpleados {
 	public static String actividadParticular(Planta a){	
 		/*
 		 * TODO:
-		 * Regresa una cadena con las actividades particulares del objeto de Planta que se recibe de parámetro
+		 * Regresa una cadena con las actividades particulares del objeto de Planta que se recibe de parï¿½metro
 		 */
-		return "";
+                if (a instanceof Directivo){
+                    
+                    Directivo firulais = (Directivo)a;
+                    return firulais.administrar() + "\n" + firulais.definirAumentos() + "\n" + firulais.reportarLogros();
+                
+                }
+               
+                if (a instanceof Secretaria){
+                    
+                    Secretaria pipsqueack = (Secretaria)a;
+                    return pipsqueack.llenaRegistros();
+                }
+		return null;
 	}
 	
 	
@@ -36,8 +49,20 @@ public class PruebaEmpleados {
 	public static String queHace(Administrativo d){
 		/*
 		 * TODO:
-		 * Regresa una cadena con las actividades que realiza el objeto con un rol de Administrativo que se recibe de parámetro
+		 * Regresa una cadena con las actividades que realiza el objeto con un rol de Administrativo que se recibe de parï¿½metro
 		 */
-		return "";
+                if (d instanceof Directivo){
+                    
+                    Directivo manchego = (Directivo)d;
+                    return manchego.administrar() + "\n" + manchego.definirAumentos() + "\n" + manchego.reportarLogros();
+                
+                }
+               
+                if (d instanceof Secretaria){
+                    
+                    Secretaria Temixco = (Secretaria)d;
+                    return Temixco.llenaRegistros();
+                }
+		return null;
 	}
 }

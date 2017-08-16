@@ -1,6 +1,8 @@
+package estructuradedatos;
 public class Directivo extends Planta implements Administrativo{
 
 	private double bonoExtra; 
+        
 
 	public Directivo( String nombre, String apellido, int antiguedad, boolean[] prestaciones, double pagoSemanal, double bono, String nombrePuesto) {
 		super( nombre, apellido, antiguedad, pagoSemanal, prestaciones);  
