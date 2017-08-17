@@ -29,9 +29,11 @@ public class PruebaEmpleados {
 		 * TODO:
 		 * Regresa una cadena con las actividades particulares del objeto de Planta que se recibe de par�metro
 		 */
+                
                 if (a instanceof Directivo){
                     
                     Directivo firulais = (Directivo)a;
+                    
                     return firulais.administrar() + "\n" + firulais.definirAumentos() + "\n" + firulais.reportarLogros();
                 
                 }

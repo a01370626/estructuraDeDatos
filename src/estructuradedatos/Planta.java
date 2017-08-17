@@ -30,6 +30,7 @@ public abstract class Planta extends Empleado {
 		 */
                 this.pagoSemanal=pagoSemanal;
                 this.prestaciones = new boolean [prestaciones.length];
+                this.diaVacaciones = pagoSemanal * antiguedad * PORCENTAJE_PLANTA; 
                 for(int i =0; i< prestaciones.length; i++){
                     if (prestaciones[i]){
                             
@@ -38,13 +39,13 @@ public abstract class Planta extends Empleado {
                         }
                     this.prestaciones[i] = prestaciones[i];
                 }
-                               
+                    this.diaVacaciones = pagoSemanal * antiguedad * PORCENTAJE_PLANTA;           
                 
                 
 	}
    
    
-    private String regresaPrestaciones() {
+        private String regresaPrestaciones() {
     	/*
     	 * TODO: 
     	 * M�todo privado que recorre el arreglo de instancia de prestaciones y si tiene un valor de true en la posici�n i,
@@ -52,7 +53,6 @@ public abstract class Planta extends Empleado {
     	 * el arreglo est�tico PRESTACIONES, en la misma posici�n i. As�, si prestaciones[0] = true, entonces la prestaci�n
     	 * correspondiente es PRESTACIONES[0] (que es �Vales despensa�).
     	 */
-    	
         return prest;
 	}
 	
