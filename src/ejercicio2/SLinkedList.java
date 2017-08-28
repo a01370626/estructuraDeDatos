@@ -52,10 +52,10 @@ public class SLinkedList<E> implements List<E> {
                 SNode<E> x = top;
                 SNode<E> newNode = new SNode<E>(element);
                 
-                for (int i = 0; i<= index; i++){
-                    x = x.next;
+                for (int i = 0; i< index; i++){
+                    x = x.next;    
                 }
-                newNode = x.next.next;
+                newNode.next = x.next;
                 x.next = newNode;
 		size++;
 	}
@@ -83,8 +83,9 @@ public class SLinkedList<E> implements List<E> {
         SNode <E> nodeToRemove = top;
         while(current.next.next != null){
             current = current.next;
-            nodeToRemove = current.next;
+            
         }
+        nodeToRemove = current.next;
         current.next = null;
         size--;
         return nodeToRemove.value;    
@@ -98,11 +99,13 @@ public class SLinkedList<E> implements List<E> {
                 }
                 SNode<E> x = top;
                 SNode<E> nodeToRemove = null;
-		for (int i = 0 ;  i < index ; i++)
+		for (int i = 0 ;  i < index ; i++){
                     if (i == (index)){
                         nodeToRemove = x.next;
-                        x = x.next.next; 
+                        x.next = x.next.next; 
                     }
+                }
+                
                 size--;
                 return nodeToRemove.value;
 	}
