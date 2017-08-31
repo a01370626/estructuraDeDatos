@@ -105,7 +105,6 @@ public class SLinkedList<E> implements List<E> {
                         x.next = x.next.next; 
                     }
                 }
-                
                 size--;
                 return nodeToRemove.value;
 	}
@@ -122,7 +121,8 @@ public class SLinkedList<E> implements List<E> {
                         nodeToRemove.next = null;
                         size--;
                         return true;
-                    }       
+                    }
+                    x = x.next;
                 }
 		return false;
 	}
