@@ -9,8 +9,36 @@ package practica3;
  * @author yamb_
  */
 public class Main {
+    
+    /*public static boolean isPalindrome(String word){
+        LinkedList<Character> letters = new LinkedList<Character>();
+            for (int i = 0; i < word.length() ; i++){
+            char letter = word.charAt(i);
+            if (Character.isLetter(letter)){
+                letters.addLast(Character.toLowerCase(letter));
+            }
+            while (letters.size() > 1){
+                if (! letters.getFirst().equals(letters.getLast())){
+                    return false;
+            }
+            letters .removeFirst();
+            letters.removeLast();
+            }
+
+        }   
+            return true;
+    }*/
+    
+    public static void main (String [] args){
+        LinkedList<Integer> iList = new LinkedList<Integer>();
+        for(int i = 0; i < 40; i++) {
+			iList.addFirst(i);	
+		}
         
-    public static void main(String[] args) {
+        iList.josephus(3);
+    }
+    
+    /*public static void main(String[] args) {
 		System.out.println("** TEST CIRCULAR DOUBLY-LINKEDLIST CLASS **");
 		System.out.println("\t** USING INTEGERS **");
 		LinkedList<Integer> iList = new LinkedList<Integer>();
@@ -129,5 +157,5 @@ public class Main {
 		System.out.println(strLinkedList);
 		System.out.println();
     }
-    
+    */
 }

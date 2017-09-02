@@ -14,7 +14,7 @@ public class LinkedList <E> implements List<E> {
     
     private Node<E> header;
     private int size;
-    private Object[] arregloDeLista;
+    
     
     public LinkedList(){
         header = new Node<E>();
@@ -44,7 +44,7 @@ public class LinkedList <E> implements List<E> {
             //signiofica que el elemento esta en la segunda mitad
             //recrorrer la lista del final hacia atras
             Node<E> x = header.prev;
-            for (int i = size; i > index; i--)
+            for (int i = size - 1; i > index; i--)
                 x = x.prev;
             return x;
         }
@@ -82,35 +82,22 @@ public class LinkedList <E> implements List<E> {
         if (index < 0 || index > size){
             throw new IndexOutOfBoundsException();
         }
-        if ( index == size){
+        if ( index == size()){
             addLast(element);
-        }else{
+        }else {
+
             Node<E> newNode = new Node<E>(element);
-            Node<E> x = header;
-            if (index < (size >> 1)){
-                for (int i = 0; i< index; i++){
-                    x = x.next;    
-                }
-                x.next.prev = newNode;
-                newNode.next = x.next;
-                newNode.prev = x;
-                x.next = newNode;  
-                size++;
-            }
-            else{
-                for (int i = size; i> index; i--){
-                    x = x.prev;    
-                }
-                x.prev.next = newNode;
-                newNode.prev = x.prev;
-                newNode.next = x;
-                x.prev = newNode;  
-                size++;
-            
-            }
+            Node<E> current = node(index);
+            Node<E> previousNode = current.prev;
+            newNode.prev = previousNode;
+            previousNode.next = newNode;
+
+            newNode.next = current;
+            current.prev = newNode;
+
+            size++;
         }
-                
-        
+                   
     }
 
     @Override
@@ -147,39 +134,20 @@ public class LinkedList <E> implements List<E> {
         if (index < 0 || index > size){
             throw new IndexOutOfBoundsException();
         }
-        Node<E> nodeToRemove = header;
-        Node<E> x = header;
-        if ( index == size){
-            removeLast();
-        }else{
-            
-            if (index < (size >> 1)){
-                for (int i = 0; i< index; i++){
-                    x = x.next;    
-                }
-                nodeToRemove = x.next;
-                x.next.next.prev = x;
-                x.next = x.next.next;
-                nodeToRemove.next = null;
-                nodeToRemove.prev = null;
-                size--;
-                return nodeToRemove.value;
-            }
-            else{
-                for (int i = size; i> index; i--){
-                    x = x.prev;    
-                }
-                nodeToRemove = x.prev;
-                x.prev.prev.next = x;
-                x.prev = x.prev.prev;
-                nodeToRemove.next = null;
-                nodeToRemove.prev = null;
-                size--;
-            }  
-        }
+        Node<E> nodeToRemove = node(index);
+        Node<E> previousNode = nodeToRemove.prev;
+        Node<E> nextNode = nodeToRemove.next;
+
+        previousNode.next = nextNode;
+        nextNode.prev = previousNode;
+        nodeToRemove.next = null;
+        nodeToRemove.prev = null;
+
+        size--;
+
         return nodeToRemove.value;
     }
-
+    
     @Override
     public boolean remove(Object o) {
             Node <E> x = header;
@@ -218,15 +186,22 @@ public class LinkedList <E> implements List<E> {
 
     @Override
     public E get(int index) {
+        if (index < 0 || index > size){
+            throw new IndexOutOfBoundsException();
+        }
         return node(index).value;
     }
 
     @Override
     public E set(int index, E element) {
-        Node<E> nodeToReturn = node(index);
-        node(index).value = element;
+        if (index < 0 || index > size){
+            throw new IndexOutOfBoundsException();
+        }
+        Node<E> nodeToSet = node(index);
+        E currentValue = nodeToSet.value;
+        nodeToSet.value = element;
         
-        return nodeToReturn.value;
+        return currentValue;
         
     }
 
@@ -249,14 +224,14 @@ public class LinkedList <E> implements List<E> {
     public int indexOf(Object o) {
         int index = 0;
         if(o == null){
-            for (Node<E> x = header.next; x != null; x = x.next){
+            for (Node<E> x = header.next; x != header; x = x.next){
                 if (x.value == null)
                     return index;
                 index++;
             }
         }
         else {
-            for (Node<E> x = header.next; x != null; x = x.next){
+            for (Node<E> x = header.next; x != header; x = x.next){
                 if (o.equals(x.value))
                     return index;
                 index++;
@@ -269,6 +244,7 @@ public class LinkedList <E> implements List<E> {
     public void clear() {
         header.next = header;
         header.prev = header;
+        size = 0;
     }
 
     @Override
@@ -285,12 +261,61 @@ public class LinkedList <E> implements List<E> {
     public Object[] toArray() {
         
 		// TODO Auto-generated method stub
-                this.arregloDeLista = new Object [this.size];
-                Node<E> x = header.next;
-                for (int i = 0; i<= size; i++ , x=x.next ){
-                    this.arregloDeLista[i] = x.value;
+                Object [] arregloDeLista = new Object [size];
+                
+                int i = 0;
+                for (Node<E> x = header.next; x != header ; x = x.next){
+                    arregloDeLista[i++] = x.value;
                 }
 		return arregloDeLista;
 	}
+    
+    public String toString() {
+		// TODO Auto-generated method stub
+                 if (header.next == null)
+                    return "[]";
+
+                Node <E> current = header.next;
+                String returnValue = "[" + current.value;
+
+                while( current.next != header){
+                    current = current.next;
+                    returnValue += ", " + current.value;
+                }
+                returnValue += "]";
+                return returnValue;
+    
+	}
+    
+    public void josephus(int steps){
+        Node<E> currentNode = header;
+        Node<E> previousNode = header;
+        Node<E> nextNode = header;
+        System.out.println(toString());
+        System.out.println("Esta ronda eliminaremos a aquel objeto que este cada " + steps+ " pasos"); 
+        while(size() != 1){
+            for (int i = 1 ; i <= steps; i++){
+                //System.out.println("Step .-" + i);
+                
+                currentNode = currentNode.next;
+                    if (currentNode.value == null){
+                        currentNode = currentNode.next;
+                    }
+                //System.out.println(currentNode.value);
+            }
+            previousNode = currentNode.prev;
+            nextNode = currentNode.next;
+            previousNode.next = nextNode;
+            nextNode.prev = previousNode;
+            currentNode.prev = null;
+            size--;
+   
+        System.out.println("Hemos eliminado al sujeto " + "'"+ currentNode.value + "'" + " :(");
+        //System.out.println("..." +"\n" + ".." +"\n" + "." +"\n" ); 
+        System.out.println(toString());  
+        }
+        System.out.println("Ultimo objeto en quedar vivo.- " + "'"+ header.next.value + "'" + " !!!");
+        
+    }
             
 }
