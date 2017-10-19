@@ -21,21 +21,170 @@ public class Main {
                 if (! letters.getFirst().equals(letters.getLast())){
                     return false;
             }
-            letters .removeFirst();
+            letters.removeFirst();
             letters.removeLast();
             }
 
         }   
             return true;
     }*/
-    
-    public static void main (String [] args){
-        LinkedList<Integer> iList = new LinkedList<Integer>();
-        for(int i = 0; i < 40; i++) {
-			iList.addFirst(i);	
-		}
+    public static String reverseParentheses(String cadena){
+       Stack<Character> pila =new Stack<Character>();
+        Character c=null;
+        StringBuilder temp = new StringBuilder (cadena.length());
+        StringBuilder Inver =new StringBuilder (cadena.length());
+        int bander = 0;
         
-        iList.josephus(3);
+        for (int i=0; i<cadena.length(); i++){
+            c=cadena.charAt(i);
+            if ((!(c.equals('('))) & (bander==0)){
+                Inver.append(c);
+            }
+            else if (c.equals('(')){
+                 bander=bander+1;}
+            
+           else if ((!(c.equals('('))) & (bander==1)){
+                    pila.push(c);
+                }
+           else if ((!(c.equals('('))) & (bander==2)){
+               temp.append(pila.pop());
+               Inver.append(temp.reverse());
+               temp.delete(0,temp.length());
+               bander=bander-1;
+                }
+           else if ((c.equals(')'))){
+               temp.append(pila.pop());
+               Inver.append(temp.reverse());
+               temp.delete(0,temp.length());
+               bander=bander-1;
+               
+           }
+        }
+    return Inver.toString();
+    }
+    
+
+    
+    
+    public static void shiftRight(int values[], int start, int end ){
+        for ( int i = end; i > start ; i--){
+            values[i] = values[(i-1)];
+        }
+        
+    }
+    
+    public static void insertionSort(int values[]){
+        int temp;
+        int start = 0;
+        int end;
+        for( int i = 1 ; i < values.length; i++){
+            temp = values[i];
+            end = i;
+            for (int j = 0; j < i; j++){
+               if (values[j] > temp){
+                   start = j;
+               }     
+            }
+            shiftRight(values, start, end);
+            
+            values[start] = temp;
+            
+        }
+        
+    }
+    
+    public static void selectionSort(int values[]){
+        
+        int switch1;
+        int smallest = 0;
+        int smallestPos = 0;
+        
+        for(int i = 0; i < values.length; i++){
+            switch1 = values[i];
+            smallest = values[i];
+            for (int j = i; j < values.length; j++){
+                if (values[j] < smallest){
+                    smallest = values[j];
+                    smallestPos = j; 
+                }
+            }
+        values[smallestPos] = smallest;
+        
+        }
+    }
+    
+    public static void bubbleSort( int values[]){
+        boolean not_sorted = true;
+        int temp;
+        while(not_sorted){
+            
+            for (int i = 1; i< (values.length-1); i++){
+                if (values[i] < values[i-1]){
+                    temp = values[i];
+                    values [i] = values [i - 1];
+                    values [i-1] = temp;
+                    not_sorted = true;
+                }
+            }   
+        }
+    }
+    
+    public static void makeHeap(int values[]){
+        for ( int i = 0; i < values.length; i++){
+            int index = i;
+            while(index!= 0){
+                int parent = (index-1)/2;
+                
+                if (values[index] <= values[parent]){
+                    break;
+                }
+                
+                int temp = values[index];
+                values[index] = values[parent];
+                values[parent] = temp;
+                
+                index = parent;
+            }
+        }
+    }
+    
+    public static int removeTopItem(int values[], int count){
+        int result = values[0];
+        
+        values[0] = values[count -1];
+        
+        int index = 0;
+        while(true){
+            int child1 = 2* index + 1;
+            int child2 = 2* index + 2;
+            
+            if (child1>= count ){
+                child1 = index;
+            }
+            if (child2 >= count){
+                child2= index;
+            }
+            if (values[index] >= values[child1] && values[index] >= values[child2]){
+                break;
+            }
+            
+            int swapChild = child1;
+            if (values[child2] > values[child1]){
+                swapChild = child2;
+            }
+            
+            int temp = values[index];
+            values[index] = values[swapChild];
+            values[swapChild] = temp;
+            
+            index = swapChild;
+        }
+        
+        return result;
+    }
+    public static void main (String [] args){
+        String s = "a(bc)de";
+        System.out.println(reverseParentheses(s));
     }
     
     /*public static void main(String[] args) {
