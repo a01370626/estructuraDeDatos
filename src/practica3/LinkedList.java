@@ -297,6 +297,38 @@ public class LinkedList <E> implements List<E> {
         return result;
     }
     
+    public int count (E value){
+        Node<E> node = header;
+        int count = 0;
+        for (int i = (size()-1); i >= 0; i--){
+            if (node.next.value.equals(value)){
+                count = count + 1;
+            }
+            node = node.next;
+        }
+        return count;
+    }
+    
+    public boolean removeFirstOcurrence (E value){
+        Node <E> node = header;
+        for (int i = 0; i < size(); i++){
+            if (node.next.value.equals(value)){
+                remove(i);
+                return true;
+            }
+            node = node.next;
+        }
+        return false;
+    }
+    
+    public boolean removeLastOcurrence(E value){
+        if (lastIndexOf(value) == -1){
+            return false;
+        }
+        remove(lastIndexOf(value));
+        return true;
+    }
+    
     
     
     public void josephus(int steps){

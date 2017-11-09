@@ -41,5 +41,16 @@ public class tipoExamen {
         return start + consecutiveAddition((start + 1), end);
     }
     
+    public static String toBinary(int n){
+        if (n == 0){
+            return null;
+        }
+        else if ((n%2) ==1){
+            return toBinary(n/2) +"1";
+        }
+        else
+            return toBinary(n/2) + "0";
+    }
+    
     
 }
