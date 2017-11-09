@@ -287,6 +287,18 @@ public class LinkedList <E> implements List<E> {
     
 	}
     
+    public int lastIndexOf(Object o){
+        int result = -1;
+        for (int i = (size()-1); i<= 0; i-- ){
+            if (get(i).equals(o)){
+                result = i;
+            }
+        }
+        return result;
+    }
+    
+    
+    
     public void josephus(int steps){
         Node<E> currentNode = header;
         Node<E> previousNode = header;
@@ -295,13 +307,11 @@ public class LinkedList <E> implements List<E> {
         System.out.println("Esta ronda eliminaremos a aquel objeto que este cada " + steps+ " pasos"); 
         while(size() != 1){
             for (int i = 1 ; i <= steps; i++){
-                //System.out.println("Step .-" + i);
                 
                 currentNode = currentNode.next;
                     if (currentNode.value == null){
                         currentNode = currentNode.next;
                     }
-                //System.out.println(currentNode.value);
             }
             previousNode = currentNode.prev;
             nextNode = currentNode.next;

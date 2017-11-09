@@ -55,9 +55,19 @@ public class ArrayList<E> implements List<E> {
 	 * @throws IndexOutOfBoundsException if the index is out of range (index < 0 || index > size())
 	 */
 	private void shiftContentsRight(int index) {
+                if (index < 0 || index > size()){
+                    throw new IndexOutOfBoundsException();
+                }
+                
                 ensureCapacity();
+                
                 newTop = new Object[top.length];
                 int i = 0;
+                /*
+                for (int i = size; i > index; i--){
+                    top[i] = top[i-1]
+                */
+                
                 for (  i = 0; i < index ; i++){
                  newTop[i] = top[i];
                 } 
@@ -106,7 +116,7 @@ public class ArrayList<E> implements List<E> {
             throw new NoSuchElementException();
         }
                  
-            return (E) top[size];
+            return (E) top[(size - 1)];
 	}
 
 	
@@ -123,16 +133,21 @@ public class ArrayList<E> implements List<E> {
             if (index < 0 || index > size){
             throw new IndexOutOfBoundsException();
         }
-            shiftContentsRight(index);
+            
+            E previousElement = (E)top[index];
+            
             top[index] = element;
-		return null;
-	}
+            
+            return previousElement;
+
+        }
 
 	@Override
 	public void clear() {
             for (int i = 0; i < top.length; i++){
                 top[i] = null;
             }
+            size = 0;
 	}
 
 	@Override
@@ -147,15 +162,16 @@ public class ArrayList<E> implements List<E> {
 
 	@Override
 	public String toString() {
-            if (size == 0){
+            if (size <= 0){
                     return "[]";
             }
-            String returnValue = "[" + top[0];
+                String returnValue = "[" + top[0];
                 for (int i = 1; i < top.length; i++){
-                    returnValue += ", " + String.valueOf(top[i]);
+                    returnValue += ", " + top[i];
                 }
                 
                 returnValue += "]";
+                
                 return returnValue;
     
 	}
