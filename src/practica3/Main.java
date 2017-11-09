@@ -22,7 +22,7 @@ public class Main {
         System.out.println(shapeArea(2));
         System.out.println(shapeArea(3));
         System.out.println(shapeArea(4));
-        System.out.println(shapeArea(6));
+        System.out.println(shapeArea(5));
        
     }
 }
