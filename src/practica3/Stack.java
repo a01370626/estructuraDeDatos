@@ -11,7 +11,7 @@ import java.util.EmptyStackException;
  * @author yamb_
  */
 public class Stack <E> implements IStack<E>{
-    private LinkedList<E> stack;
+    public LinkedList<E> stack;
    
     public Stack(){
         stack = new LinkedList<E>();
@@ -52,5 +52,6 @@ public class Stack <E> implements IStack<E>{
     public Object[] toArray() {
         return stack.toArray();
     }
+    
     
 }

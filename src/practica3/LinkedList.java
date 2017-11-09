@@ -12,8 +12,8 @@ import java.util.NoSuchElementException;
  */
 public class LinkedList <E> implements List<E> {
     
-    private Node<E> header;
-    private int size;
+    public Node<E> header;
+    public int size;
     
     
     public LinkedList(){
@@ -329,7 +329,31 @@ public class LinkedList <E> implements List<E> {
         return true;
     }
     
+    public static LinkedList<Integer> difference (LinkedList<Integer> list1,LinkedList<Integer> list2 ){
+        LinkedList<Integer> difference = new LinkedList<Integer>();
+        Node<Integer> node = list1.header;
+            for (int i = 0; i <= list1.size(); i++){
+                if (!list2.contains(node.next.value)){
+                    difference.addLast(node.next.value);
+                }
+                node = node.next;
+            }
+            
+        return difference;
+    }
     
+    public static LinkedList<Integer> intersect (LinkedList<Integer> list1,LinkedList<Integer> list2 ){
+        LinkedList<Integer> intersect = new LinkedList<Integer>();
+        Node<Integer> node = list1.header;
+            for (int i = 0; i <= list1.size(); i++){
+                if (list2.contains(node.next.value)){
+                    intersect.addLast(node.next.value);
+                }
+                node = node.next;
+            }
+            
+        return intersect;
+    }
     
     public void josephus(int steps){
         Node<E> currentNode = header;
